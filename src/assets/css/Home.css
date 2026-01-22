@@ -1,0 +1,60 @@
+.home-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 250px;
+}
+
+.intro-text{
+    font-family: var(--font-logo);
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    color: var(--cyber-green);
+    margin-bottom: 2rem;
+    max-width: 800px;
+}
+
+.buttons-group{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn{
+    padding: 7px 40px;
+    font-size: 1.8rem;
+    font-family: var(--font-code);
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid var(--cyber-green);
+    animation: glow 2s infinite alternate;
+    margin-top: 50px;
+}
+
+.btn-login{
+    border-color: var(--green-ht);
+    background-color: #000000;
+    color: var(--white);
+}
+
+.btn-login:hover {
+    background-color: rgba(19, 13, 13, 0.951);
+    box-shadow: 0 0 15px var(--cyber-green);
+    transform: scale(1.08);
+}
+
+.btn-register {
+    border-color: var(--green-ht);
+    background-color: var(--cyber-green);
+    color: var(--bg-darker);
+}
+
+.btn-register:hover {
+    transform: scale(1.08);
+}

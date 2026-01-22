@@ -1,0 +1,114 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 70vh; /* Centrado vertical respecto al main */
+    background-image:linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../images/login_sunset.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    box-sizing: border-box;
+}
+
+.form-register {
+    animation: fadeUp 0.5s ease forwards;
+    background-color: #0f1733;
+    padding: 20px 40px;
+    border-radius: 8px;
+    border: 2px solid #0c5b5e;
+    width: 100%;
+    max-width: 670px; /* Un poco más estrecho para que se vea mejor */
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-register h2 {
+    font-family: var(--font-code);
+    color: var(--white);
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-register label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: var(--font-main);
+}
+
+.form-register input {
+    font-size: 16px;
+    padding: 8px;
+    border: 2px solid var(--cyber-green);
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #151515;
+    
+}
+.password-field-group {
+    background-color: #141414;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-family: var(--font-main);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.password-field-group input {
+    margin-bottom: 8px; /* Quitamos el margen para que alinee con el botón */
+}
+
+.toggle-password {
+    padding: 0px 20px;
+    margin:-5px 0px 0px 20px;
+    background-color: var(--cyber-green);
+    border: 2px solid #000000;
+    color: var(--cyber-green);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+    transition: all 0.3s;
+}
+
+.toggle-password:hover {
+    background-color: #00ff00;/* Fondo verde muy sutil */
+    border: 2px solid #000000;
+    color: #000000; 
+    box-shadow: 0 0 15px var(--cyber-green); 
+}
+
+.btn-submit {
+    width: 25%;
+    font-size: 18px;
+    padding: 12px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--cyber-green);
+    color: var(--bg-darker);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #00ff00;/* Fondo verde muy sutil */
+    border: 2px solid #000000;
+    color: #000000; 
+    box-shadow: 0 0 15px var(--cyber-green); 
+}
+
+.footer-login{
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   
+}

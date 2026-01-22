@@ -1,68 +1,146 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/****** FONTS *********/
+@font-face {
+    font-family: 'MartianMonoBold';
+    src: url('./assets/fonts/MartianMonoNerdFontMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@font-face {
+    font-family: '0xprotoMono';
+    src: url('./assets/fonts/0xprotoMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }
-a:hover {
-  color: #535bf2;
+
+@font-face {
+    font-family: '3270Nerd';
+    src: url('./assets/fonts/3270NerdFont-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/************* GLOBAL VARS ******************/
+:root{
+  /* COLORS */
+  --bg-main: #0d1117;
+  --bg-header: #07071d;
+  --bg-darker: #050505;
+  --cyber-green: #12a805;
+  --cyber-blue: #00d4ff;
+  --white: #ffffff;
+  --text-gray: #b3b3b3;
+  --green-ht: #00ff00;
+  --cyber-purple: #b1128e;
+
+  /* fonts */
+  --font-logo: 'MartianMonoBold', monospace;
+  --font-code: '0xprotoMono', monospace;
+  --font-main: '3270Nerd', sans-serif;
+}
+
+
+/********** RESET AND BASE RULES *******/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--white);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden; /* Evita scroll horizontal en móviles */
+}
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/****** 4. ESTRUCTURA GLOBAL (Layout) ******/
+.body-index {
+    position: relative;
+    min-height: 100vh;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/****** 5. ANIMACIONES GLOBALES ******/
+@keyframes fadeUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--cyber-green), 0 0 10px var(--cyber-green);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--cyber-green), 0 0 40px var(--cyber-green);
+    }
+}
+
+/* Imagen de Fondo con Overlay */
+.body-index:before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('./assets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -2;
+}
+
+.body-index:after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: -1;
+}
+
+.main-content {
+    flex: 1; 
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/****** 6. UTILIDADES Y LOGO ******/
+.white { color: var(--white); }
+.learn { color: var(--cyber-green); }
+.purple { color: var(--cyber-purple); }
+.purple:hover{
+    text-shadow: 0 0 10px #b1128e, 0 0 20px #b1128e, 0 0 40px #b1128e;
+    color: #ff00c8;
+}
+#logo {
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#logo:hover {
+    color: var(--cyber-green);
+    transform: scale(1.02);
+}
+
+/* Aplicación de delay para animaciones en páginas */
+.body-index h1, .body-index h2, .body-index p {
+    animation: fadeUp 0.5s ease forwards;
 }

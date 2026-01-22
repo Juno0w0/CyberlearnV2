@@ -1,0 +1,21 @@
+.footer {
+    background-color: var(--bg-header); 
+    color: var(--text-gray);
+    padding: 1.5rem 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto; 
+}
+
+.footer-text {
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Opcional: Si quieres resaltar "CyberLearn" en el texto */
+.footer-text b {
+    color: var(--cyber-green);
+    font-family: var(--font-logo);
+}

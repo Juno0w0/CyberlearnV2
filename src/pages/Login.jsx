@@ -47,7 +47,7 @@ const Login = () => {
 
     return (
         <section className="register-container">
-            <div className="form-register">
+            <div className="form-register ">
                 <h2>Iniciar Sesión</h2>
                 
                 {/* Mensaje de error si falla el login */}
@@ -55,7 +55,7 @@ const Login = () => {
 
                 <form id="loginForm" onSubmit={handleSubmit}>
                     {/* CAMBIO IMPORTANTE: Usamos Username en vez de Email para coincidir con Django */}
-                    <label htmlFor="username">Nombre de Usuario:</label>
+                    <label htmlFor="username text-white">Nombre de Usuario:</label>
                     <input 
                         type="text" 
                         id="username" 

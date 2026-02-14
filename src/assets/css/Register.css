@@ -41,6 +41,7 @@
 }
 
 .form-register input {
+    color: white;
     font-size: 16px;
     padding: 8px;
     border: 2px solid var(--cyber-green);

@@ -40,7 +40,7 @@ const Dashboard = () => {
                 <header className="dashboard-header">
                     {/* Aquí inyectamos la variable {user} */}
                     <h1>Bienvenido, <span className="cyber-green-text">Agente {user}</span></h1>
-                    <p>Tu progreso actual en la misión:</p>
+                    <p style={{ fontFamily: 'var(--font-code)' }}>Tu progreso actual en la misión:</p>
                 </header>
 
                 <div className="stats-grid">

@@ -14,7 +14,7 @@
 .courses-header p {
     color: var(--text-gray);
     margin-bottom: 2rem;
-    font-family: var(--font-main);
+    font-family: var(--font-logo);
 }
 
 /* --- TARJETA DEL CURSO --- */
@@ -26,6 +26,7 @@
     margin-bottom: 20px;
     overflow: hidden; /* Para que la imagen respete el borde redondeado */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: var(--font-logo);
 }
 
 .course-card:hover {
@@ -92,11 +93,28 @@
     font-weight: bold;
     text-transform: uppercase;
 }
-
 .badge.difficulty {
+    border: 1px solid transparent; /* Para que el borde no salte al cambiar */
+    transition: 0.3s;
+}
+
+.badge.difficulty.facil {
+    background-color: rgba(0, 255, 65, 0.1);
+    color: var(--cyber-green); /* O #00ff41 */
+    border-color: rgba(0, 255, 65, 0.3);
+}
+
+.badge.difficulty.intermedio {
     background-color: #2a1c05;
     color: #ffb700;
-    border: 1px solid #5c420a;
+    border-color: #5c420a;
+}
+
+.badge.difficulty.dificil {
+    background-color: #3d0a0a;
+    color: #ff4d4d;
+    border-color: #b21f1f;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.2); /* Un brillito rojo extra */
 }
 
 .badge.modules {

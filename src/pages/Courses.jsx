@@ -66,9 +66,11 @@ const Courses = () => {
                                 <div className="course-header-row">
                                     <h2>{course.title}</h2>
                                     <div className="badges">
-                                        <span className="badge difficulty">{course.difficulty}</span>
+                                        <span className={`badge difficulty ${course.difficulty.toLowerCase()}`}>
+                                        {course.difficulty}
+                                        </span>
                                         <span className="badge modules">{course.modules} Módulos</span>
-                                    </div>
+                                        </div>
                                 </div>
                                 
                                 <p className="course-desc">{course.description}</p>

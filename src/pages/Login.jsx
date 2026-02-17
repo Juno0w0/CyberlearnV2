@@ -22,11 +22,11 @@ const Login = () => {
         });
     };
 
-    // 3. Función para enviar los datos a Django
+    // 3. Función para enviar los datos a Django (MODIFICADA PARA BYPASS)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(''); // Limpiamos errores previos
-
+/* SE COMENTA LA LLAMADA A LA API 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login/', formData);
             
@@ -44,7 +44,17 @@ const Login = () => {
             setError('Usuario o contraseña incorrectos.');
         }
     };
+*/
 
+/*BORRAR ESTE CONSOLE.LOG() ANTES DEL DESPLIEGUE*/
+       console.log("BYPASS EXITOSO");
+localStorage.setItem('token','token-falso-1234');
+localStorage.setItem('username', formData.username || 'Juno0w0');
+
+    // 3. Nos vamos al dashboard
+    navigate('/dashboard');
+    // --- FIN DEL HACK ---
+};
     return (
         <section className="register-container">
             <div className="form-register ">

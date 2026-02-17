@@ -1,0 +1,149 @@
+/* Layout Principal (Hereda el fondo oscuro del dashboard) */
+.courses-content {
+    flex: 1;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+}
+
+.courses-header h1 {
+    font-family: var(--font-logo);
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.courses-header p {
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    font-family: var(--font-main);
+}
+
+/* --- TARJETA DEL CURSO --- */
+.course-card {
+    display: flex; /* Esto pone la imagen al lado del texto */
+    background-color: #0f0f13; /* Fondo oscuro de tarjeta */
+    border: 1px solid #1f1f23;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    overflow: hidden; /* Para que la imagen respete el borde redondeado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1);
+    border-color: var(--cyber-green);
+}
+
+/* Sección Imagen (Izquierda) */
+.course-image {
+    flex: 0 0 280px; /* Ancho fijo para la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.course-icon {
+    font-size: 4rem;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+/* Sección Info (Derecha) */
+.course-info {
+    flex: 1; /* Toma el resto del espacio */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.course-info h2 {
+    font-family: var(--font-code);
+    color: var(--white);
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.course-desc {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    max-width: 90%;
+}
+
+/* Badges (Etiquetas) */
+.badges {
+    display: flex;
+    gap: 10px;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.difficulty {
+    background-color: #2a1c05;
+    color: #ffb700;
+    border: 1px solid #5c420a;
+}
+
+.badge.modules {
+    background-color: #051b11;
+    color: var(--cyber-green);
+    border: 1px solid #0a3d24;
+}
+
+/* Footer de la tarjeta */
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1f1f23;
+    padding-top: 15px;
+}
+
+.progress-placeholder {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* Botón Inscribirse */
+.btn-enroll {
+    background-color: var(--cyber-green); /* O azul #007bff si quieres copiar HTB exacto */
+    color: #000;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--font-code);
+    transition: all 0.2s;
+}
+
+.btn-enroll:hover {
+    background-color: #00ff00;
+    box-shadow: 0 0 10px var(--cyber-green);
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .course-card {
+        flex-direction: column; /* En móvil, uno arriba del otro */
+    }
+    .course-image {
+        height: 150px;
+        flex: none;
+    }
+}

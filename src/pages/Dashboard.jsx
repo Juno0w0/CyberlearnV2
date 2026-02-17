@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
 import '../assets/css/Dashboard.css';
 
 const Dashboard = () => {
@@ -22,39 +23,17 @@ const Dashboard = () => {
         }
     }, [navigate]);
 
-    // 2. Lógica de Cerrar Sesión
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        navigate('/login');
-    };
-
     // Datos de ejemplo (Pronto vendrán de Django)
     const modules = [
-        { id: 1, title: 'Introducción al Hacking', progress: 80, status: 'En curso' },
-        { id: 2, title: 'Redes y Protocolos', progress: 30, status: 'En curso' },
-        { id: 3, title: 'Análisis de Malware', progress: 0, status: 'Pendiente' },
+        { id: 1, title: 'Introduccion a Linux', progress: 80, status: 'En curso' },
+        { id: 2, title: 'Fundamentos de Redes', progress: 30, status: 'En curso' },
+        { id: 3, title: 'Hacking Web Application', progress: 0, status: 'Pendiente' },
     ];
 
     return (
         <div className="dashboard-container">
             {/* Sidebar Lateral */}
-            <aside className="sidebar">
-                <nav>
-                    <ul>
-                        <li className="active">Dashboard</li>
-                        <li>Mis Cursos</li>
-                        <li>Laboratorios</li>
-                        <li>Certificaciones</li>
-                        <li>Configuración</li>
-                        
-                        {/* Agregamos el botón de Cerrar Sesión aquí */}
-                        <li onClick={handleLogout} style={{ cursor: 'pointer', color: '#ff4d4d', marginTop: '20px' }}>
-                            ⚠ Cerrar Sesión
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+            <Sidebar/>
 
             {/* Contenido Principal */}
             <main className="dashboard-content">

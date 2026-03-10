@@ -1,92 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import "../assets/css/Courses.css";
-import LinuxImg from '../assets/images/LinuxImg.jpeg';
-import RedesImg from '../assets/images/RedesImg.jpeg';
-import WebImg from '../assets/images/WebImg.jpeg';
 
 const Courses = () => {
-   const coursesData = [
-      {
-         id:1,
-         title: "Introduccion a Linux",
-         difficulty: "Facil",
-         modules: 20,
-         image: LinuxImg,
-         description: " Este curso cubre los conceptos basicos del manejo del sistema de linux desde terminal. El manejo de linux es indispensable para un pentester y en este curso aprenderas lo necesario, desde moverte en el sistema mediante terminal hasta conseguir una escalacion de privilegios local",
-         imageColor: "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbd2d)"
-      },
-      {
-         id:2,
-         title: "Fundamentos de Redes",
-         difficulty: "Intermedio",
-         modules: 15,
-         description: "Este curso presenta los conceptos básicos esenciales para comprender el mundo de las redes. Los estudiantes aprenderán sobre diversos tipos de redes, como las LAN y las WAN, analizarán los principios fundamentales de las redes, incluyendo los modelos OSI y TCP/IP, y explorarán componentes clave de red, como routers y servidores.",
-         image: RedesImg,
-         imageColor: "linear-gradient(135deg, #000428, #004e92)"
-      },
-      {
-         id:3,
-         title: "Hacking Web Application",
-         difficulty: "Dificil",
-         modules: 20,
-         description: "Este curso cubre conceptos básicos de evaluación de seguridad web y pruebas de penetración web, y proporciona una comprensión profunda de las tácticas de ataque utilizadas durante las pruebas de penetración web.",
-         image: WebImg,
-         imageColor: "linear-gradient(135deg, #11998e, #38ef7d)"
-      } 
-   ];
+    // 1. Estado para guardar los cursos reales
+    const [coursesData, setCoursesData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-   return (
-      <div className="dashboard-container">
-         <Sidebar/>
-         <main className="courses-content">
-            <header className="courses-header">
-               <h1>Rutas de Aprendizaje</h1>
-               <p>Selecciona tu curso</p>
-            </header>
-            <div className="courses-list">
-                    {coursesData.map(course => (
-                        <div key={course.id} className="course-card">
-                            {/* Sección de Imagen (Izquierda) */}
-                            <div 
-                                className="course-image" 
-                                style={{ 
-                                // Si hay imagen, úsala con 'cover', si no, usa el gradiente
-                                    background: course.image 
-                                    ? `url(${course.image}) center center / cover no-repeat` 
-                                    : course.imageColor 
-                                }}
-                            >
-                                {/* 4. Solo mostramos el ícono 🎓 si NO hay imagen real */}
-                                {!course.image && <div className="course-icon">🎓</div>}
-                            </div>
+    // 2. Pedimos los cursos a Django al cargar la página
+    useEffect(() => {
+        const fetchCursos = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/cursos/');
+                setCoursesData(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error al cargar los cursos:", error);
+                setLoading(false);
+            }
+        };
 
-                            {/* Sección de Info (Derecha) */}
-                            <div className="course-info">
-                                <div className="course-header-row">
-                                    <h2>{course.title}</h2>
-                                    <div className="badges">
-                                        <span className={`badge difficulty ${course.difficulty.toLowerCase()}`}>
-                                        {course.difficulty}
-                                        </span>
-                                        <span className="badge modules">{course.modules} Módulos</span>
-                                        </div>
-                                </div>
-                                
-                                <p className="course-desc">{course.description}</p>
-                                
-                                <div className="course-footer">
-                                    <div className="progress-placeholder">
-                                        <span>Costo: 0 👾</span>
+        fetchCursos();
+    }, []);
+
+    // Color por defecto si no hay imagen
+    const defaultGradient = "linear-gradient(135deg, #000428, #004e92)";
+
+    return (
+        <div className="dashboard-container">
+            <Sidebar />
+            <main className="courses-content">
+                <header className="courses-header">
+                    <h1>Rutas de Aprendizaje</h1>
+                    <p>Selecciona tu curso para iniciar</p>
+                </header>
+                
+                {loading ? (
+                    <p style={{ color: 'white', textAlign: 'center', marginTop: '2rem' }}>Cargando información clasificada...</p>
+                ) : (
+                    <div className="courses-list">
+                        {/* 3. Mapeamos los datos reales de Django */}
+                        {coursesData.length === 0 ? (
+                            <p style={{ color: '#00ff88' }}>No hay cursos disponibles aún. ¡Crea uno en Django Admin!</p>
+                        ) : (
+                            coursesData.map(course => (
+                                <div key={course.id} className="course-card">
+                                    <div 
+                                        className="course-image" 
+                                        style={{ 
+                                            // Si Django manda imagen, la usamos, si no, degradado
+                                            background: course.imagen 
+                                            ? `url(${course.imagen}) center center / cover no-repeat` 
+                                            : defaultGradient 
+                                        }}
+                                    >
+                                        {!course.imagen && <div className="course-icon">🎓</div>}
                                     </div>
-                                    <button className="btn-enroll">Inscribirse</button>
+
+                                    <div className="course-info">
+                                        <div className="course-header-row">
+                                            {/* Usamos 'titulo' porque así se llama en Django */}
+                                            <h2>{course.titulo}</h2>
+                                            <div className="badges">
+                                                {/* Importante: Usar ` ` para que la clase sea dinámica */}
+                                                <span className={`badge difficulty ${course.dificultad}`}>
+                                                    {course.dificultad ? course.dificultad.charAt(0).toUpperCase() + course.dificultad.slice(1) : 'Sin Nivel'}
+                                                </span>
+    
+                                                <span className="badge modules">
+                                                    {course.lecciones ? course.lecciones.length : 0} Módulos
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Usamos 'descripcion' en vez de description */}
+                                        <p className="course-desc">{course.descripcion}</p>
+                                        
+                                        <div className="course-footer">
+                                            <div className="progress-placeholder">
+                                                <span>Costo: 0 👾</span>
+                                            </div>
+                                            <button className="btn-enroll">Inscribirse</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-         </main>
-      </div>
-   );
-}
+                            ))
+                        )}
+                    </div>
+                )}
+            </main>
+        </div>
+    );
+};
+
 export default Courses;

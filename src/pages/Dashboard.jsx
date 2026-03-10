@@ -1,60 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import '../assets/css/Dashboard.css';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState('Agente'); // Estado para el nombre
+    
+    // Unificamos el estado para evitar inconsistencias
+    const [userData, setUserData] = useState({
+        username: '', // Inicializamos vacío en lugar de dejar que sea undefined
+        profile: {
+            nivel: 1,
+            racha: 1,
+            puntos: 0
+        }
+    });
+    const [loading, setLoading] = useState(true);
 
-    // 1. Lógica de Protección y Carga de Datos
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const username = localStorage.getItem('username');
+        const storedUsername = localStorage.getItem('username');
 
-        // Si no hay token, lo mandamos al login (Seguridad)
         if (!token) {
             navigate('/login');
-        } else {
-            // Si hay token, cargamos el nombre del usuario
-            if (username) {
-                setUser(username);
-            }
+            return;
         }
+
+        // Seteamos el nombre del localStorage inmediatamente para evitar el "undefined"
+        // mientras la API responde
+        if (storedUsername) {
+            setUserData(prev => ({ ...prev, username: storedUsername }));
+        }
+
+        const fetchProgreso = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/progreso/', {
+                    headers: {
+                        'Authorization': `Token ${token}`
+                    }
+                });
+                
+                // Actualizamos con los datos reales de la DB
+                setUserData(response.data);
+            } catch (error) {
+                console.error("Error cargando datos del agente:", error);
+                if (error.response && error.response.status === 401) {
+                    localStorage.removeItem('token');
+                    navigate('/login');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProgreso();
     }, [navigate]);
 
-    // Datos de ejemplo (Pronto vendrán de Django)
     const modules = [
-        { id: 1, title: 'Introduccion a Linux', progress: 80, status: 'En curso' },
-        { id: 2, title: 'Fundamentos de Redes', progress: 30, status: 'En curso' },
-        { id: 3, title: 'Hacking Web Application', progress: 0, status: 'Pendiente' },
+        { id: 1, title: 'Introduccion a Linux', progress: 80 },
+        { id: 2, title: 'Fundamentos de Redes', progress: 30 },
+        { id: 3, title: 'Hacking Web Application', progress: 0 },
     ];
 
     return (
         <div className="dashboard-container">
-            {/* Sidebar Lateral */}
             <Sidebar/>
 
-            {/* Contenido Principal */}
             <main className="dashboard-content">
                 <header className="dashboard-header">
-                    {/* Aquí inyectamos la variable {user} */}
-                    <h1>Bienvenido, <span className="cyber-green-text">Agente {user}</span></h1>
-                    <p style={{ fontFamily: 'var(--font-code)' }}>Tu progreso actual en la misión:</p>
+                    <h1>
+                        Bienvenido, <span className="cyber-green-text">
+                            {/* Usamos un fallback por si userData.username sigue vacío */}
+                            {loading && !userData.username ? "Sincronizando..." : `Agente ${userData.username || 'Recluta'}`}
+                        </span>
+                    </h1>
+                    <p style={{ fontFamily: 'var(--font-code)' }}>
+                        {loading ? "Sincronizando con la red central..." : "Estado de la misión: Operativo"}
+                    </p>
                 </header>
 
                 <div className="stats-grid">
                     <div className="stat-card">
                         <h3>Nivel</h3>
-                        <p className="stat-value">1</p>
+                        <p className="stat-value">{userData.profile?.nivel ?? 1}</p>
                     </div>
                     <div className="stat-card">
                         <h3>Racha</h3>
-                        <p className="stat-value">1 Día</p>
+                        <p className="stat-value">{userData.profile?.racha ?? 0} Días</p>
                     </div>
                     <div className="stat-card">
                         <h3>Puntos</h3>
-                        <p className="stat-value">100</p>
+                        <p className="stat-value">{userData.profile?.puntos ?? 0}</p>
                     </div>
                 </div>
 
